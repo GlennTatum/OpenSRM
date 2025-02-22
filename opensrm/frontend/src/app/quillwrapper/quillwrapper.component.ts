@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { QuillComponent } from '../quill/quill.component';
+import { MathProblem } from '../problem-viewer/problem-viewer.component';
 
 @Component({
   selector: 'app-quillwrapper',
@@ -10,7 +11,7 @@ import { QuillComponent } from '../quill/quill.component';
 })
 export class QuillwrapperComponent {
 
-  @Input() question_text = ''
+  @Input() problem: MathProblem;
 
   current = '' // current math expression in LaTeX
 

@@ -1,11 +1,21 @@
 @if(problems.length != 0) {
-    @for(problem of problems; track problem.math_question_id) {
-        @if(problem.math_question_id === current_select) {
-            <li>Current Problem {{ problem.math_question_id }}</li>
-        } @else {
-            <li>Problem {{ problem.math_question_id }}</li>
-        }
-    }
+    <div class="menu has-background-grey-lighter p-4" style="border-radius: 10px; min-height: 75vh;">
+        <p class="menu-label">OpenSRM</p>
+        <ul class="menu-list">
+            @for(problem of problems; track problem.math_question_id) {
+
+                @if(problem.math_question_id === current_select) {
+                    <li class=" p-1" style="border-radius: 10px;">
+                        <a [routerLink]="['/problem', problem.math_question_id]" (click)="handleRouteSwap(problem.math_question_id)">Problem {{ problem.math_question_id }}</a>
+                    </li>    
+                } @else {
+                    <li class="p-1" style="border-radius: 10px;">
+                        <a [routerLink]="['/problem', problem.math_question_id]" (click)="handleRouteSwap(problem.math_question_id)">Problem {{ problem.math_question_id }}</a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
 } @else {
     <p>loading problems...</p>
 }
