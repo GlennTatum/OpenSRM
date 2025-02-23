@@ -1,8 +1,0 @@
-<div class="columns">
-    <div class="column is-one-quarter">
-        <app-problem-set-sidebar [problems]="problemList" [current_select]="problemId" [current_topic]="select_topic" (swapQuestion)="swapCurrent($event)"></app-problem-set-sidebar>
-    </div>
-    <div class="column">
-        <app-quillwrapper [problem]="currentProblem"></app-quillwrapper>
-    </div>
-</div>

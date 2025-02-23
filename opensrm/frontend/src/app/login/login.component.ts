@@ -41,8 +41,7 @@ export class LoginComponent {
       this.http.post<AuthResponse>(R(`login/${user}`), null).subscribe((resp) => {
         document.cookie = `token=${resp['token']};`
       })
-  
-      // ...
+      
     }).catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;

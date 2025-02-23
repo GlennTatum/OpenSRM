@@ -1,0 +1,27 @@
+<div class="columns pt-4">
+    <div class="column is-one-quarter">
+        <aside class="menu box">
+            <p class="menu-label">
+                Navigation
+            </p>
+            <ul class="menu-list">
+                <li><a [routerLink]="['/dashboard']">Home</a></li>
+            </ul>
+            <p class="menu-label">
+                Questions
+            </p>
+            <ul class="menu-list">
+                @for(q of questions; track q._id) {
+                    <li><button class="button is-ghost is-fullwidth" (click)="handleSwap(q._id)">{{ questions.indexOf(q) }}. {{ q._id }}</button></li>
+                }
+            </ul>
+        </aside>
+    </div>
+    <div class="column is-three-quarters">
+        <div class="box">
+            @if(this.current_select) {
+                <app-quillwrapper [text]="this.current_select.math_question_text" [imageURL]="this.current_select.math_question_image_url" [expectedAnswer]="this.current_select.math_question_answer"></app-quillwrapper>
+            }
+        </div>
+    </div>
+</div>

@@ -1,17 +1,33 @@
-<div class="columns">
-    <div class="column is-one-quarter has-background-grey-light" style="border-radius: 10px;">
-        <div class="is-flex is-justify-content-center">
-            <figure class="image is-128x128">
-                <img class="is-rounded" src="https://bulma.io/assets/images/placeholders/128x128.png" />
-            </figure>
-        </div>
-        <div class="is-flex is-justify-content-center mt-2">
-            <p>My Profile</p>
+<section class="hero is-info">
+    <div class="hero-body">
+      <p class="title">OpenSRM</p>
+    </div>
+  </section>
+<div class="columns mt-4">
+    <div class="column is-one-quarter">
+        <div class="box">
+            <div class="has-text-centered">
+                <figure class="image is-128x128 is-inline-block">
+                    <img class="is-rounded" [src]="avatar" />
+                </figure>
+            </div>
+            <div class="has-text-centered mt-3">
+                <p class="title is-4">{{ active_user }}</p>
+            </div>
         </div>
     </div>
-    <div class="column has-background-grey-light ml-4" style="border-radius: 10px;">
-        <div>
-            <p>User Stats</p>
+    <div class="column">
+        <div class="box">
+            <div class="content">
+                <h4>Topics to Study</h4>
+                <ul>
+                    @for(topic of study_topics; track topic.length) {
+                        <li>
+                            <a [routerLink]="['/set/', topic]">{{ topic }} (SR: {{ mmr[study_topics.indexOf(topic)] }})</a>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
 </div>

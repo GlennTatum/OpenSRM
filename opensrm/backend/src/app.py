@@ -19,6 +19,8 @@ from uuid import uuid4
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from sympy.parsing.latex import parse_latex
+
 PyObjectId = Annotated[str, BeforeValidator(str)]
 
 class UserAccountModel(BaseModel):
@@ -77,7 +79,7 @@ async def signup(email: str):
         id=str(uuid4()),
         email=email,
         session=s,
-        topics=[],
+        topics={},
         points=0
     )
 
@@ -141,3 +143,9 @@ async def getProblems(topic: str):
     
     return res
 
+@app.post("/evaluate/{expression}")
+async def evaluate(expression: str):
+    expr = parse_latex(expression, backend="antlr")
+    r = expr.evalf(subs=dict(x=4))
+
+    return {"answer": str(r)}
