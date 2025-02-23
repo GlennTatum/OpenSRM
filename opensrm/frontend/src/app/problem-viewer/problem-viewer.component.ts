@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProblemSetSidebarComponent } from '../problem-set-sidebar/problem-set-sidebar.component';
 import { ActivatedRoute, Params } from '@angular/router';
 import { QuillwrapperComponent } from "../quillwrapper/quillwrapper.component";
+import { User, UserRes, UserService } from '../user.service';
+import { HttpClient } from '@angular/common/http';
+import { R } from '../backend';
+import { QuestionRes, QuestionService } from '../question.service';
 
 export type MathProblem = {
-  math_question_id: number,
+  _id: string,
   math_question_text: string,
   math_question_image_url: string,
   math_question_answer: number,
@@ -19,41 +23,42 @@ export type MathProblem = {
 })
 export class ProblemViewerComponent implements OnInit {
 
-  // TODO fetch problems from API on constructor given url out of a problem set
-  public readonly testProblemList: MathProblem[] = [
-    {
-      math_question_id: 1,
-      math_question_text: 'what is 1+1?',
-      math_question_image_url: '',
-      math_question_answer: 2
-    },
-    {
-      math_question_id: 2,
-      math_question_text: 'what is 2+1?',
-      math_question_image_url: '',
-      math_question_answer: 3
-    }
-  ]
+  problemList: MathProblem[] = []
 
-  problemId: number = 0
+  problemId: string = ''
   currentProblem: MathProblem | null = null;
+  select_topic = ''
 
-  constructor(private route: ActivatedRoute) {}
+  userService = inject(UserService);
+  questionService = inject(QuestionService)
+
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.problemId = Number.parseInt(this.route.snapshot.params['problemId']);
-    this.testProblemList.find((value: MathProblem, index: number, obj: MathProblem[]) => {
-      if(value.math_question_id === this.problemId) {
+
+    this.userService.U().subscribe((v: UserRes) => {
+      let user: User = JSON.parse(JSON.stringify(v["user"]))
+
+      this.select_topic = this.route.snapshot.params['topic']
+
+      this.questionService.Q(this.route.snapshot.params['topic']).subscribe((v: QuestionRes) => {
+        let problems = JSON.parse(JSON.stringify(v["question"]))
+        this.problemList = problems
+      })
+    })
+
+    this.problemId = this.route.snapshot.params['problemId'];
+    this.problemList.find((value: MathProblem, index: number, obj: MathProblem[]) => {
+      if(value._id === this.problemId) {
         this.currentProblem = value;
       }
     })
+    this.select_topic = this.route.snapshot.params['topic']
   }
 
-  current_new = 0;
-
-  public swapCurrent(r: number) {
-    this.testProblemList.find((value: MathProblem, index: number, obj: MathProblem[]) => {
-      if(value.math_question_id === r) {
+  public swapCurrent(r: string) {
+    this.problemList.find((value: MathProblem, index: number, obj: MathProblem[]) => {
+      if(value._id === r) {
         this.currentProblem = value;
       }
     })

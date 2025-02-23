@@ -1,0 +1,1 @@
+export const R: (param: string) => string = (param: string) => { return 'http://localhost:8000' + '/' + param};

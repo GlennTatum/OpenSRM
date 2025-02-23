@@ -16,9 +16,6 @@ export class QuillComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let mfe = new MathfieldElement();
 
-    // Set initial value and options
-    mfe.value = "\\frac{\\sin(x)}{\\cos(x)}";
-
     // Attach the element to the DOM
     let mathLiveDiv = document.getElementById("mathLive");
     mathLiveDiv.appendChild(mfe);

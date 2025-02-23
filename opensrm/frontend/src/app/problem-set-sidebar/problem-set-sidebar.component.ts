@@ -11,12 +11,13 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class ProblemSetSidebarComponent {
 
-  @Output() swapQuestion = new EventEmitter<number>();
+  @Output() swapQuestion = new EventEmitter<string>();
 
   @Input() problems: MathProblem[] = [];
-  @Input() current_select: number | null = null;
+  @Input() current_select: string | null = null;
+  @Input() current_topic = '';
 
-  public handleRouteSwap(r: number) {
+  public handleRouteSwap(r: string) {
     this.swapQuestion.emit(r);
   }
 

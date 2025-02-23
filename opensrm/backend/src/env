@@ -1,0 +1,2 @@
+MONGODB_URL=mongodb+srv://cluster1.tytr7.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&appName=Cluster1
+X509_CERT=X509-cert-3475528257726905939.pem

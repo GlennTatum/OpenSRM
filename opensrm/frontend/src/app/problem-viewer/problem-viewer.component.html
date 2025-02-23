@@ -1,9 +1,8 @@
 <div class="columns">
     <div class="column is-one-quarter">
-        <app-problem-set-sidebar [problems]="testProblemList" [current_select]="problemId" (swapQuestion)="swapCurrent($event)"></app-problem-set-sidebar>
+        <app-problem-set-sidebar [problems]="problemList" [current_select]="problemId" [current_topic]="select_topic" (swapQuestion)="swapCurrent($event)"></app-problem-set-sidebar>
     </div>
     <div class="column">
         <app-quillwrapper [problem]="currentProblem"></app-quillwrapper>
-        {{ current_new }}
     </div>
 </div>
